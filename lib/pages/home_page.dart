@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../controller/handle_converter/handle_converter_bloc.dart';
 import '../controller/handle_currency/handle_currency_bloc.dart';
+import '../locales/tr.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key}) {
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: AppConstants.defaultPadding),
                     Text(
-                      "Currency",
+                      tr(context).currency,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontSize: 50,
                             fontWeight: FontWeight.w900,
@@ -100,7 +101,7 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "CURRENCY I HAVE",
+                      tr(context).currencyIHave.toUpperCase(),
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             fontFamily: AppConstants.fontFamily,
@@ -108,7 +109,7 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: AppConstants.defaultPadding * 0.25),
                     Text(
-                      "I have this much to exchange",
+                      tr(context).currencyIHaveDescription,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontFamily: AppConstants.fontFamily,
                             color: AppColors.textMutedColor,
@@ -192,7 +193,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(width: AppConstants.defaultPadding),
                       Text(
-                        'Switch Currencies',
+                        tr(context).switchCurrencies,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontFamily: AppConstants.fontFamily,
                               color: AppColors.primaryColor,
@@ -212,7 +213,7 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "CURRENCY I WANT",
+                      tr(context).currencyIWant.toUpperCase(),
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             fontFamily: AppConstants.fontFamily,
@@ -220,7 +221,7 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: AppConstants.defaultPadding * 0.25),
                     Text(
-                      "I want to buy something at this price",
+                      tr(context).currencyIWantDescription,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontFamily: AppConstants.fontFamily,
                             color: AppColors.textMutedColor,

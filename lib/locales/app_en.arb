@@ -1,0 +1,10 @@
+{
+  "currency": "Currency",
+  "currencyIHave": "Currency I have",
+  "currencyIWant": "Currency I want",
+  "currencyIHaveDescription": "I have this much to exchange",
+  "currencyIWantDescription": "I want to buy something at this price",
+  "switchCurrencies": "Switch Currencies",
+  "amount": "Amount",
+  "amountDescription": "Enter amount"
+}

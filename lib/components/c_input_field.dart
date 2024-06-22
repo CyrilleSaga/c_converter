@@ -1,6 +1,8 @@
 import 'package:c_converter/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../locales/tr.dart';
+
 class CInputField extends StatelessWidget {
   final TextEditingController controller;
   final Function(String)? onChanged;
@@ -20,10 +22,10 @@ class CInputField extends StatelessWidget {
       textAlign: TextAlign.right,
       textAlignVertical: TextAlignVertical.center,
       cursorColor: AppColors.primaryColor,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: "Enter amount",
-        hintStyle: TextStyle(
+        hintText: tr(context).amount,
+        hintStyle: const TextStyle(
           fontSize: 50,
           fontWeight: FontWeight.w400,
           color: AppColors.textMutedColor,

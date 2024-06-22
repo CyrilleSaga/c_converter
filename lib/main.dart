@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'helpers/theme.dart';
+import 'locales/l10n.dart';
 import 'pages/home_page.dart';
 
 Future<void> main() async {
@@ -25,6 +28,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'C Converter',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: L10n.all,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,

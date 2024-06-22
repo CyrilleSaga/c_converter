@@ -1,0 +1,10 @@
+{
+  "currency": "Devise",
+  "currencyIHave": "Devise que j'ai",
+  "currencyIWant": "Devise que je veux",
+  "currencyIHaveDescription": "J'ai ce montant à convertir",
+  "currencyIWantDescription": "Je veux acheter quelque chose à ce prix",
+  "switchCurrencies": "Permuter les devises",
+  "amount": "Montant",
+  "amountDescription": "Entrer le montant"
+}
