@@ -34,6 +34,10 @@ class Currency {
     );
   }
 
+  static List<Currency> listFromJson(List<dynamic> list) {
+    return list.map((e) => Currency.fromMap(e)).toList();
+  }
+
   String toJson() => json.encode(toMap());
 
   factory Currency.fromJson(String source) => Currency.fromMap(json.decode(source));

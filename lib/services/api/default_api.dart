@@ -13,9 +13,9 @@ class DefaultApi {
       url: "/codes",
     );
 
-    Map<String, dynamic> data = jsonDecode(response.data);
+    // Map<String, dynamic> data = jsonDecode(response.data);
 
-    List<List<String>> supportedCodes = data['supported_codes'];
+    List<dynamic> supportedCodes = response.data['supported_codes'];
 
     List<Currency> currencies = [];
 
@@ -25,8 +25,6 @@ class DefaultApi {
         name: element[1],
       ));
     }
-
-    log("Currencies: $currencies");
 
     return currencies;
   }

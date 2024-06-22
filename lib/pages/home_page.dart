@@ -2,11 +2,17 @@ import 'package:c_converter/components/c_input_field.dart';
 import 'package:c_converter/components/select_field.dart';
 import 'package:c_converter/controller/currency_controller.dart';
 import 'package:c_converter/helpers/constants.dart';
-import 'package:c_converter/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../controller/bloc/handle_currency_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key}) {
+    _handleCurrencyBloc.add(FetchCurrenciesEvent());
+  }
+
+  final _handleCurrencyBloc = HandleCurrencyBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +32,7 @@ class HomePage extends StatelessWidget {
                           fontSize: 25,
                           color: AppColors.primaryColor,
                           fontFamily: AppConstants.fontFamily,
+                          fontWeight: FontWeight.w900,
                         ),
                   ),
                   const SizedBox(height: AppConstants.defaultPadding),
@@ -89,19 +96,26 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SelectField(
-                    currencies: [
-                      Currency(code: "USD", name: "US Dollar"),
-                      Currency(code: "EUR", name: "Euro"),
-                    ],
-                    onCurrencySelected: (v) {},
-                    controller: CurrencyController(),
-                  ),
-                  const CInputField(),
-                ],
+              child: BlocBuilder<HandleCurrencyBloc, HandleCurrencyState>(
+                bloc: _handleCurrencyBloc,
+                builder: (context, state) {
+                  if (state is HandleCurrencyLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SelectField(
+                          currencies: state.currencies,
+                          onCurrencySelected: (v) {},
+                          controller: CurrencyController(
+                            initialCurrency: state.selectedFromCurrency,
+                          ),
+                        ),
+                        const CInputField(),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ),
 
@@ -111,7 +125,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Icon(
                     Icons.swap_vert,
@@ -174,19 +188,26 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SelectField(
-                    currencies: [
-                      Currency(code: "USD", name: "US Dollar"),
-                      Currency(code: "EUR", name: "Euro"),
-                    ],
-                    onCurrencySelected: (v) {},
-                    controller: CurrencyController(),
-                  ),
-                  const CInputField(),
-                ],
+              child: BlocBuilder<HandleCurrencyBloc, HandleCurrencyState>(
+                bloc: _handleCurrencyBloc,
+                builder: (context, state) {
+                  if (state is HandleCurrencyLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SelectField(
+                          currencies: state.currencies,
+                          onCurrencySelected: (v) {},
+                          controller: CurrencyController(
+                            initialCurrency: state.selectedToCurrency,
+                          ),
+                        ),
+                        const CInputField(),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ),
 

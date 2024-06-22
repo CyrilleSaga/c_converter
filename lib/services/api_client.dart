@@ -14,7 +14,7 @@ class ApiClient {
     required String url,
   }) async {
     return await client.request(
-      url,
+      "$baseUrl$url",
       data: jsonEncode(body),
       options: Options(
         method: method,

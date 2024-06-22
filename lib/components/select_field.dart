@@ -39,7 +39,7 @@ class SelectField extends StatelessWidget {
             const SizedBox(width: AppConstants.defaultPadding * .4),
             Obx(
               () => Text(
-                "${controller.selectedCurrency.value.name} (${controller.selectedCurrency.value.code})",
+                "${controller.selectedCurrency.value?.name} (${controller.selectedCurrency.value?.code})",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontFamily: AppConstants.fontFamily,
                       color: AppColors.primaryColor,
@@ -61,7 +61,7 @@ class SelectField extends StatelessWidget {
     required BuildContext context,
   }) {
     return Container(
-      height: Get.height * 0.5,
+      height: Get.height * 0.75,
       width: double.infinity,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -125,7 +125,7 @@ class SelectField extends StatelessWidget {
                   trailing: GetBuilder<CurrencyController>(
                       init: controller,
                       builder: (ctrl) {
-                        if (ctrl.selectedCurrency.value.code == currencies[index].code) {
+                        if (ctrl.selectedCurrency.value?.code == currencies[index].code) {
                           return const Icon(
                             CupertinoIcons.checkmark_alt_circle_fill,
                             color: AppColors.primaryColor,
