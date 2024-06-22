@@ -9,7 +9,6 @@ class DefaultApi {
   Future<List<Currency>> getCurrencies() async {
     Response response = await apiClient.invokeApi(
       method: "GET",
-      body: null,
       url: "/codes",
     );
 
@@ -27,5 +26,19 @@ class DefaultApi {
     }
 
     return currencies;
+  }
+
+  /// Get conversion rate
+  Future<ConverterResponse> getConversionRate({
+    required String fromCode,
+    required String toCode,
+    required double amount,
+  }) async {
+    Response response = await apiClient.invokeApi(
+      method: "GET",
+      url: "/pair/$fromCode/$toCode/$amount",
+    );
+
+    return ConverterResponse.fromMap(response.data);
   }
 }

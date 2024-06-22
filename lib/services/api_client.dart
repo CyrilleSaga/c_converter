@@ -13,6 +13,8 @@ class ApiClient {
     Object? body,
     required String url,
   }) async {
+    log("Invoking API: $url");
+
     return await client.request(
       "$baseUrl$url",
       data: jsonEncode(body),

@@ -19,6 +19,17 @@ class HandleCurrencyBloc extends HydratedBloc<HandleCurrencyEvent, HandleCurrenc
         );
       });
     });
+    on<SwicthCurrenciesEvent>((event, emit) async {
+      await DefaultApi().getCurrencies().then((currencies) {
+        emit(
+          HandleCurrencyLoaded(
+            currencies: currencies,
+            selectedFromCurrency: currencies.firstWhere((element) => element.code == event.toCode),
+            selectedToCurrency: currencies.firstWhere((element) => element.code == event.fromCode),
+          ),
+        );
+      });
+    });
   }
 
   @override
