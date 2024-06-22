@@ -4,6 +4,8 @@ abstract class AppConstants {
   static const String appName = 'C Converter';
   static const double defaultPadding = 16.0;
   static const String fontFamily = "Nunito";
+  static const String apiKey = "3d30bb5c7f397f18de96ba96";
+  static const String apiUrl = "https://v6.exchangerate-api.com/v6";
 }
 
 abstract class AppColors {

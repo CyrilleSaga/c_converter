@@ -1,4 +1,8 @@
+import 'package:c_converter/components/c_input_field.dart';
+import 'package:c_converter/components/select_field.dart';
+import 'package:c_converter/controller/currency_controller.dart';
 import 'package:c_converter/helpers/constants.dart';
+import 'package:c_converter/services/api.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,8 +41,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppConstants.defaultPadding),
-            const Divider(
-              color: AppColors.textMutedColor,
+            Divider(
+              color: AppColors.textMutedColor.withOpacity(0.5),
               height: 1,
             ),
             const SizedBox(height: AppConstants.defaultPadding * 1.5),
@@ -69,10 +73,10 @@ class HomePage extends StatelessWidget {
             ),
 
             const SizedBox(height: AppConstants.defaultPadding * .5),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
               child: Divider(
-                color: AppColors.textMutedColor,
+                color: AppColors.textMutedColor.withOpacity(0.5),
                 height: 1,
               ),
             ),
@@ -80,13 +84,25 @@ class HomePage extends StatelessWidget {
 
             // Input field
             Container(
-              height: 100,
               margin: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.primaryColor,
               ),
-              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SelectField(
+                    currencies: [
+                      Currency(code: "USD", name: "US Dollar"),
+                      Currency(code: "EUR", name: "Euro"),
+                    ],
+                    onCurrencySelected: (v) {},
+                    controller: CurrencyController(),
+                  ),
+                  const CInputField(),
+                ],
+              ),
             ),
 
             const SizedBox(height: AppConstants.defaultPadding * 2),
@@ -142,10 +158,10 @@ class HomePage extends StatelessWidget {
             ),
 
             const SizedBox(height: AppConstants.defaultPadding * .5),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
               child: Divider(
-                color: AppColors.textMutedColor,
+                color: AppColors.textMutedColor.withOpacity(0.5),
                 height: 1,
               ),
             ),
@@ -153,19 +169,31 @@ class HomePage extends StatelessWidget {
 
             // Input field
             Container(
-              height: 100,
               margin: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.primaryColor,
               ),
-              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SelectField(
+                    currencies: [
+                      Currency(code: "USD", name: "US Dollar"),
+                      Currency(code: "EUR", name: "Euro"),
+                    ],
+                    onCurrencySelected: (v) {},
+                    controller: CurrencyController(),
+                  ),
+                  const CInputField(),
+                ],
+              ),
             ),
 
             const SizedBox(height: AppConstants.defaultPadding * 2),
 
-            const Divider(
-              color: AppColors.textMutedColor,
+            Divider(
+              color: AppColors.textMutedColor.withOpacity(0.5),
               height: 1,
             ),
           ],
