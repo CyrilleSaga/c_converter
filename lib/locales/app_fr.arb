@@ -6,5 +6,7 @@
   "currencyIWantDescription": "Je veux acheter quelque chose à ce prix",
   "switchCurrencies": "Permuter les devises",
   "amount": "Montant",
-  "amountDescription": "Entrer le montant"
+  "amountDescription": "Entrer le montant",
+  "searchCurrency": "Rechercher la devise",
+  "search": "Rechercher"
 }

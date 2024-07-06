@@ -1,3 +1,6 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:c_converter/locales/tr.dart';
 import 'package:c_converter/services/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +14,16 @@ class SelectField extends StatelessWidget {
   final Function(Currency) onCurrencySelected;
   final CurrencyController controller;
 
-  const SelectField({
+  SelectField({
     super.key,
     this.currencies = const [],
     required this.onCurrencySelected,
     required this.controller,
-  });
+  }) {
+    cloneCurrencies = Rx(currencies);
+  }
+
+  late Rx<List<Currency>> cloneCurrencies;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +94,7 @@ class SelectField extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding),
             child: Text(
-              "Select Currency",
+              tr(context).searchCurrency,
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 25,
@@ -96,50 +103,78 @@ class SelectField extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppConstants.defaultPadding),
+          // Search devise
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding),
+            child: TextField(
+              onChanged: (value) {
+                cloneCurrencies.value = currencies.where((element) {
+                  return element.code.toLowerCase().contains(value.toLowerCase()) || element.name.toLowerCase().contains(value.toLowerCase());
+                }).toList();
+              },
+              decoration: InputDecoration(
+                hintText: "${tr(context).search}...",
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: AppColors.textMutedColor,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: AppColors.textMutedColor,
+                ),
+                hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontFamily: AppConstants.fontFamily,
+                    ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: AppConstants.defaultPadding),
           Divider(
             color: AppColors.textMutedColor.withOpacity(0.5),
             height: 1,
           ),
           const SizedBox(height: AppConstants.defaultPadding),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(AppConstants.defaultPadding),
-              itemCount: currencies.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    currencies[index].name,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontFamily: AppConstants.fontFamily,
-                          color: AppColors.textMutedColor,
-                        ),
-                  ),
-                  subtitle: Text(
-                    currencies[index].code,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontFamily: AppConstants.fontFamily,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
-                  ),
-                  trailing: GetBuilder<CurrencyController>(
-                      init: controller,
-                      builder: (ctrl) {
-                        if (ctrl.selectedCurrency.value?.code == currencies[index].code) {
-                          return const Icon(
+            child: Obx(
+              () => ListView.builder(
+                padding: const EdgeInsets.all(AppConstants.defaultPadding),
+                itemCount: cloneCurrencies.value.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      cloneCurrencies.value[index].name,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontFamily: AppConstants.fontFamily,
+                            color: AppColors.textMutedColor,
+                          ),
+                    ),
+                    subtitle: Text(
+                      cloneCurrencies.value[index].code,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontFamily: AppConstants.fontFamily,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                          ),
+                    ),
+                    trailing: (controller.selectedCurrency.value?.code == cloneCurrencies.value[index].code)
+                        ? const Icon(
                             CupertinoIcons.checkmark_alt_circle_fill,
                             color: AppColors.primaryColor,
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      }),
-                  onTap: () {
-                    onCurrencySelected(currencies[index]);
-                    controller.updateCurrency(currencies[index]);
-                    Navigator.pop(context);
-                  },
-                );
-              },
+                          )
+                        : const SizedBox.shrink(),
+                    onTap: () {
+                      onCurrencySelected(cloneCurrencies.value[index]);
+                      controller.updateCurrency(cloneCurrencies.value[index]);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],

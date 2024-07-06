@@ -6,5 +6,7 @@
   "currencyIWantDescription": "I want to buy something at this price",
   "switchCurrencies": "Switch Currencies",
   "amount": "Amount",
-  "amountDescription": "Enter amount"
+  "amountDescription": "Enter amount",
+  "searchCurrency": "Search Currency",
+  "search": "Search"
 }
