@@ -8,5 +8,12 @@
   "amount": "Amount",
   "amountDescription": "Enter amount",
   "searchCurrency": "Search Currency",
-  "search": "Search"
+  "search": "Search",
+  "welcome": "Welcome to",
+  "appDescription": "Fast and easy currency conversion at your fingertips",
+  "conversionRate": "Conversion Rate",
+  "rate": "Rate",
+  "quickConversion": "Quick Conversion",
+  "fromCurrency": "From",
+  "toCurrency": "To"
 }
