@@ -59,146 +59,58 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: AppConstants.defaultPadding * 2),
+            padding: EdgeInsets.zero,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "C Converter",
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontSize: 25,
-                            color: AppColors.primaryColor,
-                            fontFamily: AppConstants.fontFamily,
-                            fontWeight: FontWeight.w900,
-                          ),
-                    ),
-                    const SizedBox(height: AppConstants.defaultPadding),
-                    Text(
-                      tr(context).currency,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontSize: 50,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: AppConstants.fontFamily,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: AppConstants.defaultPadding),
-              Divider(
-                color: AppColors.textMutedColor.withOpacity(0.5),
-                height: 1,
-              ),
-              const SizedBox(height: AppConstants.defaultPadding * 1.5),
-
-              // Currency I have
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr(context).currencyIHave.toUpperCase(),
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppConstants.fontFamily,
-                          ),
-                    ),
-                    const SizedBox(height: AppConstants.defaultPadding * 0.25),
-                    Text(
-                      tr(context).currencyIHaveDescription,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontFamily: AppConstants.fontFamily,
-                            color: AppColors.textMutedColor,
-                          ),
-                    )
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: AppConstants.defaultPadding * .5),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                child: Divider(
-                  color: AppColors.textMutedColor.withOpacity(0.5),
-                  height: 1,
-                ),
-              ),
-              const SizedBox(height: AppConstants.defaultPadding * .5),
-
-              // Input field
+              // Hero Section with Gradient
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.primaryColor,
+                      AppColors.primaryColor.withOpacity(0.7),
+                    ],
+                  ),
                 ),
-                child: BlocBuilder<HandleCurrencyBloc, HandleCurrencyState>(
-                  bloc: _handleCurrencyBloc,
-                  builder: (context, state) {
-                    if (state is HandleCurrencyLoaded) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SelectField(
-                            currencies: state.currencies,
-                            onCurrencySelected: (v) {
-                              selectedFromCurrency.value = v;
-                              _handleConverterBloc.add(GetConversionRateEvent(
-                                fromCode: selectedFromCurrency.value.code,
-                                toCode: selectedToCurrency.value.code,
-                                amount: amountFromController.text.isNotEmpty ? double.parse(amountFromController.text) : 1,
-                              ));
-                            },
-                            controller: CurrencyController(
-                              initialCurrency: state.selectedFromCurrency,
-                            ),
-                          ),
-                          CInputField(
-                            controller: amountFromController,
-                            onChanged: (v) {
-                              convertAmountToFromAmountFrom(v);
-                            },
-                          ),
-                        ],
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ),
-
-              const SizedBox(height: AppConstants.defaultPadding * 2),
-
-              // Swicth Currencies
-              GestureDetector(
-                onTap: () {
-                  _handleCurrencyBloc.add(SwicthCurrenciesEvent(
-                    fromCode: selectedFromCurrency.value.code,
-                    toCode: selectedToCurrency.value.code,
-                  ));
-                },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.defaultPadding * 2,
+                    vertical: AppConstants.defaultPadding * 3,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.swap_vert,
-                        color: AppColors.primaryColor,
-                        size: 25,
-                      ),
-                      const SizedBox(width: AppConstants.defaultPadding),
                       Text(
-                        tr(context).switchCurrencies,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        tr(context).welcome,
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                              fontSize: 16,
+                              color: Colors.white.withOpacity(0.9),
                               fontFamily: AppConstants.fontFamily,
-                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w600,
                             ),
-                      )
+                      ),
+                      const SizedBox(height: AppConstants.defaultPadding * 0.5),
+                      Text(
+                        "C Converter",
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              fontSize: 36,
+                              color: Colors.white,
+                              fontFamily: AppConstants.fontFamily,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.2,
+                            ),
+                      ),
+                      const SizedBox(height: AppConstants.defaultPadding),
+                      Text(
+                        tr(context).appDescription,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 15,
+                              color: Colors.white.withOpacity(0.95),
+                              fontFamily: AppConstants.fontFamily,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
                     ],
                   ),
                 ),
@@ -206,89 +118,393 @@ class HomePage extends StatelessWidget {
 
               const SizedBox(height: AppConstants.defaultPadding * 2),
 
-              // Currency I want
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr(context).currencyIWant.toUpperCase(),
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppConstants.fontFamily,
-                          ),
-                    ),
-                    const SizedBox(height: AppConstants.defaultPadding * 0.25),
-                    Text(
-                      tr(context).currencyIWantDescription,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontFamily: AppConstants.fontFamily,
-                            color: AppColors.textMutedColor,
-                          ),
-                    )
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: AppConstants.defaultPadding * .5),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                child: Divider(
-                  color: AppColors.textMutedColor.withOpacity(0.5),
-                  height: 1,
-                ),
-              ),
-              const SizedBox(height: AppConstants.defaultPadding * .5),
-
-              // Input field
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding * 2),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: BlocBuilder<HandleCurrencyBloc, HandleCurrencyState>(
-                  bloc: _handleCurrencyBloc,
-                  builder: (context, state) {
-                    if (state is HandleCurrencyLoaded) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+              // Conversion Rate Card
+              Obx(() => convertionRate.value > 0
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.defaultPadding * 2,
+                      ),
+                      padding: const EdgeInsets.all(AppConstants.defaultPadding * 1.5),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppColors.primaryColor.withOpacity(0.1),
+                            AppColors.primaryColor.withOpacity(0.05),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: AppColors.primaryColor.withOpacity(0.2),
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
                         children: [
-                          SelectField(
-                            currencies: state.currencies,
-                            onCurrencySelected: (v) {
-                              selectedToCurrency.value = v;
-                              _handleConverterBloc.add(GetConversionRateEvent(
-                                fromCode: selectedFromCurrency.value.code,
-                                toCode: selectedToCurrency.value.code,
-                                amount: amountToController.text.isNotEmpty ? double.parse(amountToController.text) : 1,
-                              ));
-                            },
-                            controller: CurrencyController(
-                              initialCurrency: state.selectedToCurrency,
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.trending_up,
+                              color: AppColors.primaryColor,
+                              size: 28,
                             ),
                           ),
-                          CInputField(
-                            controller: amountToController,
-                            onChanged: (v) {
-                              convertAmountFromToAmountTo(v);
-                            },
+                          const SizedBox(width: AppConstants.defaultPadding),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tr(context).conversionRate,
+                                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                                        fontFamily: AppConstants.fontFamily,
+                                        color: AppColors.textMutedColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "1 ${selectedFromCurrency.value.code} = ${convertionRate.value.toStringAsFixed(4)} ${selectedToCurrency.value.code}",
+                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                        fontFamily: AppConstants.fontFamily,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
+                      ),
+                    )
+                  : const SizedBox.shrink()),
+
+              const SizedBox(height: AppConstants.defaultPadding * 2),
+
+              // Currency I have Section
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.defaultPadding * 2,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.white
+                      : AppColors.bgDarkColor,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 20,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(AppConstants.defaultPadding * 1.5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.account_balance_wallet,
+                              color: AppColors.primaryColor,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: AppConstants.defaultPadding),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tr(context).currencyIHave.toUpperCase(),
+                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: AppConstants.fontFamily,
+                                        letterSpacing: 0.5,
+                                      ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  tr(context).currencyIHaveDescription,
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                        fontFamily: AppConstants.fontFamily,
+                                        color: AppColors.textMutedColor,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppConstants.defaultPadding * 1.5),
+                      Divider(
+                        color: AppColors.textMutedColor.withOpacity(0.2),
+                        height: 1,
+                      ),
+                      const SizedBox(height: AppConstants.defaultPadding),
+                      BlocBuilder<HandleCurrencyBloc, HandleCurrencyState>(
+                        bloc: _handleCurrencyBloc,
+                        builder: (context, state) {
+                          if (state is HandleCurrencyLoaded) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                SelectField(
+                                  currencies: state.currencies,
+                                  onCurrencySelected: (v) {
+                                    selectedFromCurrency.value = v;
+                                    _handleConverterBloc.add(GetConversionRateEvent(
+                                      fromCode: selectedFromCurrency.value.code,
+                                      toCode: selectedToCurrency.value.code,
+                                      amount: amountFromController.text.isNotEmpty
+                                          ? double.parse(amountFromController.text)
+                                          : 1,
+                                    ));
+                                  },
+                                  controller: CurrencyController(
+                                    initialCurrency: state.selectedFromCurrency,
+                                  ),
+                                ),
+                                CInputField(
+                                  controller: amountFromController,
+                                  onChanged: (v) {
+                                    convertAmountToFromAmountFrom(v);
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
               const SizedBox(height: AppConstants.defaultPadding * 2),
 
-              Divider(
-                color: AppColors.textMutedColor.withOpacity(0.5),
-                height: 1,
+              // Enhanced Switch Button
+              GestureDetector(
+                onTap: () {
+                  _handleCurrencyBloc.add(SwicthCurrenciesEvent(
+                    fromCode: selectedFromCurrency.value.code,
+                    toCode: selectedToCurrency.value.code,
+                  ));
+                },
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppConstants.defaultPadding * 2,
+                      vertical: AppConstants.defaultPadding,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.primaryColor,
+                          AppColors.primaryColor.withOpacity(0.8),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.primaryColor.withOpacity(0.3),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.swap_vert,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                        const SizedBox(width: AppConstants.defaultPadding),
+                        Text(
+                          tr(context).switchCurrencies,
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontFamily: AppConstants.fontFamily,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
+
+              const SizedBox(height: AppConstants.defaultPadding * 2),
+
+              // Currency I want Section
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.defaultPadding * 2,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.white
+                      : AppColors.bgDarkColor,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 20,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(AppConstants.defaultPadding * 1.5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.currency_exchange,
+                              color: AppColors.primaryColor,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: AppConstants.defaultPadding),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tr(context).currencyIWant.toUpperCase(),
+                                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: AppConstants.fontFamily,
+                                        letterSpacing: 0.5,
+                                      ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  tr(context).currencyIWantDescription,
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                        fontFamily: AppConstants.fontFamily,
+                                        color: AppColors.textMutedColor,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppConstants.defaultPadding * 1.5),
+                      Divider(
+                        color: AppColors.textMutedColor.withOpacity(0.2),
+                        height: 1,
+                      ),
+                      const SizedBox(height: AppConstants.defaultPadding),
+                      BlocBuilder<HandleCurrencyBloc, HandleCurrencyState>(
+                        bloc: _handleCurrencyBloc,
+                        builder: (context, state) {
+                          if (state is HandleCurrencyLoaded) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                SelectField(
+                                  currencies: state.currencies,
+                                  onCurrencySelected: (v) {
+                                    selectedToCurrency.value = v;
+                                    _handleConverterBloc.add(GetConversionRateEvent(
+                                      fromCode: selectedFromCurrency.value.code,
+                                      toCode: selectedToCurrency.value.code,
+                                      amount: amountToController.text.isNotEmpty
+                                          ? double.parse(amountToController.text)
+                                          : 1,
+                                    ));
+                                  },
+                                  controller: CurrencyController(
+                                    initialCurrency: state.selectedToCurrency,
+                                  ),
+                                ),
+                                CInputField(
+                                  controller: amountToController,
+                                  onChanged: (v) {
+                                    convertAmountFromToAmountTo(v);
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: AppConstants.defaultPadding * 3),
+
+              // Footer with info
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.defaultPadding * 2,
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(AppConstants.defaultPadding),
+                      decoration: BoxDecoration(
+                        color: AppColors.textMutedColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: AppColors.textMutedColor,
+                            size: 16,
+                          ),
+                          const SizedBox(width: AppConstants.defaultPadding * 0.5),
+                          Flexible(
+                            child: Text(
+                              "Exchange rates updated in real-time",
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontFamily: AppConstants.fontFamily,
+                                    color: AppColors.textMutedColor,
+                                    fontSize: 12,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: AppConstants.defaultPadding * 2),
             ],
           ),
         ),

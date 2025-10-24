@@ -8,5 +8,12 @@
   "amount": "Montant",
   "amountDescription": "Entrer le montant",
   "searchCurrency": "Rechercher la devise",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "welcome": "Bienvenue sur",
+  "appDescription": "Conversion de devises rapide et facile à portée de main",
+  "conversionRate": "Taux de conversion",
+  "rate": "Taux",
+  "quickConversion": "Conversion rapide",
+  "fromCurrency": "De",
+  "toCurrency": "Vers"
 }
